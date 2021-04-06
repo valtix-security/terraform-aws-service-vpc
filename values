@@ -1,0 +1,7 @@
+access_key = "1234"
+secret_key = "1234"
+aws_region = "us-west-2"
+zones = ["us-west-2a", "us-west-2b"]
+prefix = "valtix_svc"
+vpc_cidr = "172.16.0.0/16"
+vpc_subnet_bits = 8
