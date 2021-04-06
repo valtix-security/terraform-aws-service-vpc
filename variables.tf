@@ -18,7 +18,7 @@ variable "zones" {
 
 variable "prefix" {
   description = "All the resource will be created with this prefix e.g: valtix_svpc"
-  default = "valtix_svc"
+  default     = "valtix_svc"
 }
 
 variable "vpc_cidr" {
