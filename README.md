@@ -1,4 +1,4 @@
-# terraform-service-vpc
+# Service VPC for AWS using AWS terraform provider
 
 Create a Valtix Service VPC to deploy Valtix Gateway in manual mode. The terraform creates 3 subnets in each AZ
 
