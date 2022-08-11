@@ -147,3 +147,6 @@ You can use variables instead of hard coded values
 In the directory where you created the above file, run the following commands
 
 ```
+terraform init
+terraform apply
+```
