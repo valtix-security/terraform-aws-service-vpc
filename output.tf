@@ -1,11 +1,61 @@
-output "tgw_ingress_subnet" {
-  value = aws_subnet.tgw_ingress.*.id
+output "vpc" {
+  value = aws_vpc.valtix_svpc.id
 }
 
-output "tgw_ingress_route_table" {
-  value = aws_route_table.tgw_ingress.*.id
+output "datapath_subnet" {
+  value = { for idx, zone in var.zones :
+    zone => {
+      subnet_id : aws_subnet.datapath[idx].id,
+      subnet_name : aws_subnet.datapath[idx].tags.Name
+      route_table_id : aws_route_table.datapath[idx].id
+      route_table_name : aws_route_table.datapath[idx].tags.Name
+    }
+  }
 }
 
-output "datapath_route_table" {
-  value = aws_route_table.datapath.*.id
+output "mgmt_subnet" {
+  value = { for idx, zone in var.zones :
+    zone => {
+      subnet_id : aws_subnet.mgmt[idx].id,
+      subnet_name : aws_subnet.mgmt[idx].tags.Name
+      route_table_id : aws_route_table.mgmt[idx].id
+      route_table_name : aws_route_table.mgmt[idx].tags.Name
+    }
+  }
+}
+
+output "tgw_attachment_subnet" {
+  value = { for idx, zone in var.zones :
+    zone => {
+      subnet_id : aws_subnet.tgw_attachment[idx].id,
+      subnet_name : aws_subnet.tgw_attachment[idx].tags.Name
+      route_table_id : aws_route_table.tgw_attachment[idx].id
+      route_table_name : aws_route_table.tgw_attachment[idx].tags.Name
+    }
+  }
+}
+
+output "datapath_security_group" {
+  value = {
+    id : aws_security_group.datapath.id
+    name : aws_security_group.datapath.name
+  }
+}
+
+output "mgmt_security_group" {
+  value = {
+    id : aws_security_group.mgmt.id
+    name : aws_security_group.mgmt.name
+  }
+}
+
+output "valtix_gw_instance_details" {
+  description = "instance_details in valtix_gateway resource"
+  value = { for idx, zone in var.zones :
+    zone => {
+      availability_zone : zone
+      mgmt_subnet : aws_subnet.mgmt[idx].id
+      datapath_subnet : aws_subnet.datapath[idx].id
+    }
+  }
 }

@@ -1,24 +1,16 @@
-variable "access_key" {
-  description = "customer access key"
-}
-
-variable "secret_key" {
-  description = "customer secret key"
-}
-
-variable "aws_region" {
+variable "region" {
   description = "AWS region to launch servers."
   default     = "us-east-1"
 }
 
 variable "zones" {
-  description = "AZ names"
-  default     = ["us-east-1a"]
+  description = "List of Availability Zone names"
+  default     = ["us-east-1a", "us-east-1b"]
 }
 
 variable "prefix" {
-  description = "All the resource will be created with this prefix e.g: valtix_svpc"
-  default     = "valtix_svc"
+  description = "All the resource will be created with this prefix"
+  default     = "valtix_svpc"
 }
 
 variable "vpc_cidr" {
