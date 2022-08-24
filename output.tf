@@ -1,11 +1,14 @@
 output "vpc" {
-  value = aws_vpc.valtix_svpc.id
+  value = {
+    vpc_id : aws_vpc.valtix_svpc.id
+    vpc_name : aws_vpc.valtix_svpc.tags.Name
+  }
 }
 
 output "datapath_subnet" {
   value = { for idx, zone in var.zones :
     zone => {
-      subnet_id : aws_subnet.datapath[idx].id,
+      subnet_id : aws_subnet.datapath[idx].id
       subnet_name : aws_subnet.datapath[idx].tags.Name
       route_table_id : aws_route_table.datapath[idx].id
       route_table_name : aws_route_table.datapath[idx].tags.Name
@@ -16,7 +19,7 @@ output "datapath_subnet" {
 output "mgmt_subnet" {
   value = { for idx, zone in var.zones :
     zone => {
-      subnet_id : aws_subnet.mgmt[idx].id,
+      subnet_id : aws_subnet.mgmt[idx].id
       subnet_name : aws_subnet.mgmt[idx].tags.Name
       route_table_id : aws_route_table.mgmt[idx].id
       route_table_name : aws_route_table.mgmt[idx].tags.Name
@@ -27,7 +30,7 @@ output "mgmt_subnet" {
 output "tgw_attachment_subnet" {
   value = { for idx, zone in var.zones :
     zone => {
-      subnet_id : aws_subnet.tgw_attachment[idx].id,
+      subnet_id : aws_subnet.tgw_attachment[idx].id
       subnet_name : aws_subnet.tgw_attachment[idx].tags.Name
       route_table_id : aws_route_table.tgw_attachment[idx].id
       route_table_name : aws_route_table.tgw_attachment[idx].tags.Name

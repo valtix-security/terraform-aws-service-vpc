@@ -5,9 +5,9 @@ Create a Valtix Service VPC to deploy Valtix Gateway.
 1. Create a VPC
 1. Create internet gateway and attach to the VPC
 1. Create the following subnets in each of the availability zones:
-    * datapath subnet and a route table, default route to igw
-    * mgmt subnet and a route table, default route to igw
-    * tgw_attachment subnet and a route table
+    * datapath subnet and datapath route table associated to it, default route to igw
+    * mgmt subnet and mgmt route table associated to it, default route to igw
+    * tgw_attachment subnet and a route table associated to it
 1. Create security groups in the VPC
     * datapath: allow all ingress and egress traffic
     * mgmt: allow all egress traffic
@@ -16,11 +16,11 @@ Create a Valtix Service VPC to deploy Valtix Gateway.
 
 
 ## Variables
-* `region` - Region where the resources are created, defaults to `us-east1`
 * `zones` - Availability zones, defaults to `["us-east-1a", "us-east-1b"]`
 * `prefix` - Prefix used for all the resources created, defaults to `valtix_svpc`
 * `vpc_cidr` - CIDR used for the VPC, defaults to `172.16.0.0/16`
 * `vpc_subnet_bits` - Additional bits used for the subnets - The final subnet mask is the vpc_cidr mask + the value provided here, defaults to 8 which makes the subnet mask as 24
+* `region` - (Optional) AWS region where Service VPC (and Valtix Gateways) are deployed. Required when running as root module
 
 ## Outputs
 * `vpc` - VPC Id
@@ -60,7 +60,7 @@ Create a Valtix Service VPC to deploy Valtix Gateway.
     ```
 * `tgw_attachment_subnet` - A map for each zone, with subnet names and ids
     ```
-    tgw_attachment_subnet = {
+    {
       "us-east-1a" = {
         "route_table_id" = "rtb-111111"
         "route_table_name" = "valtix_svpc_us-east-1a_tgw_attachment"
@@ -77,13 +77,17 @@ Create a Valtix Service VPC to deploy Valtix Gateway.
     ```
 * `mgmt_security_group` - A map of id and name
     ```
-    id = "sg-1111"
-    name = "valtix_svpc_mgmt
+    {
+      "id" = "sg-1111"
+      "name" = "valtix_svpc_mgmt
+    }
     ```
 * `datapath_security_group` - A map of id and name
     ```
-    id = "sg-1111"
-    name = "valtix_svpc_datapath
+    {
+      "id" = "sg-1111"
+      "name" = "valtix_svpc_datapath
+    }
     ```
 * `valtix_gw_instance_details` - A structure suitable to be used as-is in the valtix_gateway terraform resource
     ```

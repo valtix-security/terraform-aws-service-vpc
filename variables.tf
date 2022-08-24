@@ -1,15 +1,10 @@
-variable "region" {
-  description = "AWS region to launch servers."
-  default     = "us-east-1"
-}
-
 variable "zones" {
-  description = "List of Availability Zone names"
+  description = "List of Availability Zone names where the Valtix Gateway instances are deployed"
   default     = ["us-east-1a", "us-east-1b"]
 }
 
 variable "prefix" {
-  description = "All the resource will be created with this prefix"
+  description = "Prefix for the resources (vpc, subnet, route tables)"
   default     = "valtix_svpc"
 }
 
@@ -22,3 +17,9 @@ variable "vpc_subnet_bits" {
   description = "Number of additional bits in the subnet. The final subnet mask is the vpc_cidr mask + the value provided here"
   default     = 8
 }
+
+variable "region" {
+  description = "(Optional) AWS region where Service VPC (and Valtix Gateways) are deployed. Required when running as root module"
+  default     = "us-east-1"
+}
+
