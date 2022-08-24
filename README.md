@@ -104,7 +104,7 @@ Create a Valtix Service VPC to deploy Valtix Gateway.
 ```
 git clone https://github.com/valtix-security/terraform-aws-service-vpc.git
 cd terraform-aws-service-vpc
-mv provider provider.tf
+cp provider provider.tf
 cp values-sample values
 ```
 
