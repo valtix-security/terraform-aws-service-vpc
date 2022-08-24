@@ -11,7 +11,7 @@ resource "aws_subnet" "tgw_attachment" {
 }
 
 resource "aws_route_table" "tgw_attachment" {
-  # eventually users must add a route in this route table for 0/0 to go to gwlbe
+  # users must add a route in this route table for 0/0 to go to gwlbe
   vpc_id = aws_vpc.valtix_svpc.id
   count  = length(var.zones)
 
